@@ -25,10 +25,10 @@ function Header() {
       <div>
         <Link href="/">Home</Link>
         <Link href="/about">About</Link>
-        <Link href="/products">Products</Link>
-        <Link href="/cart">
-          🛒 {/* 0 is placeholder for items in cart*/}
-        </Link>{' '}
+        <Link href="/products" data-test-id="products-link">
+          Products
+        </Link>
+        <Link href="/cart">🛒 {/* 0 is placeholder for items in cart*/}</Link>{' '}
       </div>
     </header>
   );
