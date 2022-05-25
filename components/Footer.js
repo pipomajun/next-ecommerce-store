@@ -2,7 +2,6 @@ import { css } from '@emotion/react';
 import React from 'react';
 
 const footerStyles = css`
-  width: 100vw;
   margin: 15px;
   padding: 8px 16px;
   background: #98fb98;

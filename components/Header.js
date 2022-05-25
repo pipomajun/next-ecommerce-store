@@ -9,6 +9,9 @@ const headerStyles = css`
   border-radius: 6px;
   display: flex;
   justify-content: space-between;
+  a {
+    text-decoration: none;
+  }
   div > a + a {
     margin-left: 10px;
   }
@@ -16,11 +19,16 @@ const headerStyles = css`
 function Header() {
   return (
     <header css={headerStyles}>
-      <h1>🤙 supermegaawesomestore.</h1>
+      <h1>
+        <Link href="/">🤙 supermegaawesomestore.</Link>
+      </h1>
       <div>
         <Link href="/">Home</Link>
         <Link href="/about">About</Link>
         <Link href="/products">Products</Link>
+        <Link href="/cart">
+          🛒 {/* 0 is placeholder for items in cart*/}
+        </Link>{' '}
       </div>
     </header>
   );
