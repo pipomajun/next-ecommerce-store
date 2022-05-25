@@ -1,6 +1,6 @@
 export const productsDatabase = [
   {
-    id: 1,
+    id: '1',
     brand: 'G.4',
     type: 'Deep Freeze All White Slim',
     price: 6,
@@ -9,7 +9,7 @@ export const productsDatabase = [
       'G.4 DEEP FREEZE has a light and spicy character with clear elements of eucalyptus and menthol.',
   },
   {
-    id: 2,
+    id: '2',
     brand: 'LOOP',
     type: 'Habanero Mint Extra Strong',
     price: 5,
@@ -18,7 +18,7 @@ export const productsDatabase = [
       'LOOP Habanero Mint has, as the name suggests, a hot taste of the habanero chili interspersed with a fresh taste of mint.',
   },
   {
-    id: 3,
+    id: '3',
     brand: 'FEDRS',
     type: 'Ice Cool Mint Hard',
     price: 5,
@@ -27,7 +27,7 @@ export const productsDatabase = [
       'FEDRS Ice Cool Mint Hard have a combination of frosty freshness with a high nicotine content. The high concentration of active ingredients in Mint Hard will be a real discovery for experienced Fedrs lovers.',
   },
   {
-    id: 4,
+    id: '4',
     brand: 'Kapten',
     type: 'Vit White Portion',
     price: 4,
@@ -37,7 +37,7 @@ export const productsDatabase = [
   },
 
   {
-    id: 5,
+    id: '5',
     brand: 'Nick and Johnny',
     type: 'Americana Xtra Strong Portion',
     price: 6,
@@ -46,7 +46,7 @@ export const productsDatabase = [
       'A dark and spicy flavour of tobacco with clear hints of cherry, almond, wintergreens and raspberry. A well-balanced variant from Nick & Johnnu which is relatively strong and offers large portions.',
   },
   {
-    id: 6,
+    id: '6',
     brand: 'Thunder',
     type: 'Frosted Slim All White',
     price: 4,
