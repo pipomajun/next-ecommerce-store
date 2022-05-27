@@ -12,25 +12,26 @@ const headerStyles = css`
   h1 {
     margin-left: 30px;
   }
-  a {
-    text-decoration: none;
-    font-size: 24px;
-    font-weight: bolder;
-    text-align: center;
+  h1:hover {
+    cursor: pointer;
   }
-  a:hover {
-    border: 1px white solid;
-    border-radius: 100px;
-    padding: 10px;
-    background-color: white;
-  }
-  div > a + a {
-    margin-left: 40px;
-  }
+
   .navContainer {
     display: flex;
     align-items: center;
     margin-right: 30px;
+    width: 400px;
+    justify-content: space-around;
+    a {
+      color: black;
+      text-decoration: none;
+      font-size: 24px;
+      font-weight: bolder;
+      text-align: center;
+    }
+    a:hover {
+      color: white;
+    }
   }
 `;
 function Header() {

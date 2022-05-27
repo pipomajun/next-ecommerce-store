@@ -9,16 +9,16 @@ const mainHeroStyles = css`
   justify-content: space-evenly;
   .heroImgContainer {
     width: 50%;
-    height: 50%;
+
     padding: 40px;
     img {
-      border-radius: 100px;
+      border-radius: 500px;
       opacity: 0.7;
     }
   }
   .heroTextContainer {
     width: 50%;
-    height: 50%;
+
     padding: 40px;
     p {
       border: 1px grey solid;
@@ -28,10 +28,13 @@ const mainHeroStyles = css`
       padding: 10px;
       font-size: 24px;
       text-align: center;
+      transition: transform 0.2s;
     }
     p:hover {
+      border-color: white;
       background-color: #90e8e8;
       cursor: pointer;
+      transform: scale(1.1);
     }
   }
 `;
@@ -74,7 +77,7 @@ export default function Home() {
           <br />
           <br />
           <Link href="/products">
-            <p>Checkout our line of product brands →</p>
+            <p>Check out our line of product brands →</p>
           </Link>
         </div>
       </main>

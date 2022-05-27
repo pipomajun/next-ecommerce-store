@@ -18,10 +18,12 @@ const mainProductsStyles = css`
     .productItem {
       padding: 10px;
       border: 4px #90e8e8 dotted;
+      transition: transform 0.2s;
     }
     .productItem:hover {
       background-color: #f2f2f2;
       cursor: pointer;
+      transform: scale(1.2);
     }
     p {
       margin: 10px auto;
@@ -43,7 +45,7 @@ export default function Products(props) {
       </Head>
 
       <main css={mainProductsStyles}>
-        <h1>Newly in stock!</h1>
+        <h1>All Products</h1>
         <div className="productsDisplay">
           {props.products.map((product) => {
             return (
