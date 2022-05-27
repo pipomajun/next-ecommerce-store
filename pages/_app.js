@@ -8,6 +8,8 @@ function MyApp({ Component, pageProps }) {
         styles={css`
           html,
           body {
+            height: 1000px;
+            font-size: 24px;
             margin: 0;
             padding: 0;
             font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI,

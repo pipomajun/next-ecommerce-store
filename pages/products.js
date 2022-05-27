@@ -19,6 +19,10 @@ const mainProductsStyles = css`
       padding: 10px;
       border: 4px #90e8e8 dotted;
     }
+    .productItem:hover {
+      background-color: lightgrey;
+      cursor: pointer;
+    }
     p {
       margin: 10px auto;
       text-align: center;

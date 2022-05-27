@@ -3,9 +3,9 @@ import React from 'react';
 
 const footerStyles = css`
   margin: 15px;
-  padding: 8px 16px;
+  padding: 16px 24px;
   background: #90e8e8;
-  border-radius: 6px;
+  border-radius: 100px;
   div {
     width: 30%;
     margin: 0 auto;

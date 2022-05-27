@@ -4,9 +4,9 @@ import React from 'react';
 
 const headerStyles = css`
   margin: 15px;
-  padding: 8px 16px;
+  padding: 16px 24px;
   background: #90e8e8;
-  border-radius: 6px;
+  border-radius: 100px;
   display: flex;
   justify-content: space-between;
   a {
