@@ -20,7 +20,7 @@ const mainProductsStyles = css`
       border: 4px #90e8e8 dotted;
     }
     .productItem:hover {
-      background-color: lightgrey;
+      background-color: #f2f2f2;
       cursor: pointer;
     }
     p {
