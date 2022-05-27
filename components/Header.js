@@ -31,6 +31,7 @@ const headerStyles = css`
     }
     a:hover {
       color: white;
+      border-bottom: 3px white dotted;
     }
   }
 `;
