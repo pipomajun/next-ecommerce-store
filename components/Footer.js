@@ -4,7 +4,7 @@ import React from 'react';
 const footerStyles = css`
   margin: 15px;
   padding: 8px 16px;
-  background: #98fb98;
+  background: #90e8e8;
   border-radius: 6px;
   div {
     width: 30%;
@@ -16,7 +16,7 @@ const footerStyles = css`
 function Footer() {
   return (
     <footer css={footerStyles}>
-      <div>This is a supermegaawesome footer with copyright and stuff.</div>
+      <div>© This is a supermegaawesome footer with copyright and stuff.</div>
     </footer>
   );
 }

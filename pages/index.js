@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
+
 const heroStyles = css`
   display: flex;
   flex-direction: column;
@@ -19,11 +20,8 @@ export default function Home() {
       {/* Do i want to make /home a landing page?*/}
       <main>
         <div css={heroStyles}>
-          <h1>Welcome to my store! </h1>
-          <div>
-            Some div. Some div. Some div. Some div. Some div. Some div. Some
-            div. Some div.
-          </div>
+          <h1>Welcome at supermegaawesomestore. </h1>
+          <h2>You're supermegaawesome for being here!</h2>
         </div>
       </main>
     </div>

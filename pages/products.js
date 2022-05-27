@@ -1,28 +1,30 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import { productsDatabase } from '../util/database';
 
 const mainProductsStyles = css`
   width: 100vw;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   h1 {
     text-align: center;
     padding-bottom: 50px;
   }
-`;
-const displayProductsStyle = css`
-  max-width: 80%;
-  display: flex;
-  /* margin: 0 auto; */
-  justify-content: space-around;
-  .productItem {
+  .productsDisplay {
+    display: flex;
+    justify-content: space-evenly;
+    .productItem {
+      padding: 10px;
+      border: 4px #90e8e8 dotted;
+    }
     p {
-      font-size: 24px;
-      font-weight: bold;
+      margin: 10px auto;
       text-align: center;
+      max-width: 200px;
+      font-size: 24px;
+      font-weight: bolder;
     }
   }
 `;
@@ -38,27 +40,25 @@ export default function Products(props) {
 
       <main css={mainProductsStyles}>
         <h1>Newly in stock!</h1>
-        <div className="displayProductsStyle" css={displayProductsStyle}>
+        <div className="productsDisplay">
           {props.products.map((product) => {
             return (
-              <div className="productItem" key={`product-${product.id}`}>
-                <Image
-                  src={product.image}
-                  alt={`${product.brand} ${product.type}`}
-                  width="479"
-                  height="480"
-                />
-                <p>{`${product.brand} ${product.type}`}</p>
-              </div>
+              <Link
+                href={`/products/${product.id}`}
+                key={`product-${product.id}`}
+              >
+                <div className="productItem">
+                  <Image
+                    src={product.image}
+                    alt={`${product.brand} ${product.type}`}
+                    width="279"
+                    height="280"
+                  />
+                  <p>{`${product.brand} ${product.type}`}</p>
+                </div>
+              </Link>
             );
           })}
-
-          {/* <li>Product 1</li>
-            <li>Product 2</li>
-            <li>Product 3</li>
-            <li>Product 4</li>
-            <li>Product 5</li>
-            <li>Product 6</li> */}
         </div>
       </main>
     </div>
