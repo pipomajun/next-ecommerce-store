@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { productsDatabase } from '../util/database';
 
+// CSS-in-JS
 const mainProductsStyles = css`
   width: 100vw;
   display: flex;

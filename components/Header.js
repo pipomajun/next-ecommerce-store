@@ -2,6 +2,9 @@ import { css } from '@emotion/react';
 import Link from 'next/link';
 import React from 'react';
 
+// import { countItemsInCart } from '../util/cartFunctions';
+// import { getParsedCookie } from '../util/cookies';
+
 const headerStyles = css`
   margin: 15px;
   padding: 16px 24px;
@@ -35,6 +38,20 @@ const headerStyles = css`
     }
   }
 `;
+// // function to count items in cart and display it in header
+// const cartCount = () => {
+//   try {
+//     return getParsedCookie('cart');
+//   } catch (err) {
+//     return;
+//   }
+// };
+
+// const itemsInCart = cartCount();
+
+// const totalItemsInCart =
+//   typeof itemsInCart === 'undefined' ? 0 : countItemsInCart(itemsInCart);
+
 function Header() {
   return (
     <header css={headerStyles}>
@@ -48,7 +65,7 @@ function Header() {
         <Link href="/products" data-test-id="products-link">
           Products
         </Link>
-        <Link href="/cart">🛒 0{/* 0 is placeholder for items in cart*/}</Link>{' '}
+        <Link href="/cart">🛒 0</Link>{' '}
       </div>
     </header>
   );

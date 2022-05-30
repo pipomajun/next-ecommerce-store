@@ -42,14 +42,14 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>E-Commerce Store</title>
+        <title>🤙 supermegaawesomestore.</title>
         <meta
           name="description"
           content="This is a fake online-store for products"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* Do i want to make /home a landing page?*/}
+
       <main css={mainHeroStyles}>
         <div className="heroImgContainer">
           <Image
