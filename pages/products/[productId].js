@@ -2,6 +2,8 @@ import { css } from '@emotion/react';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
 import { useState } from 'react';
+import { addItemToCart, removeItemFromCart } from '../../util/cartFunctions';
+// import { addItemToCart } from '../../util/cartFunctions';
 // import Counter from '../../components/Counter';
 import { getParsedCookie, setStringifiedCookie } from '../../util/cookies';
 import { productsDatabase } from '../../util/database';
@@ -64,9 +66,11 @@ const counterContainer = css`
 export default function Product(props) {
   // Set useState for for isInCart and cartCounter
   const [isInCart, setIsInCart] = useState('cartCounter' in props.product);
+  console.log(isInCart);
   const [cartCounter, setCartCounter] = useState(
     props.product.cartCounter || 0,
   );
+  console.log(cartCounter);
   // Handle add to cart
   const handleAddToCart = () => {
     const currentCart = Cookies.get('cart') ? getParsedCookie('cart') : [];
@@ -94,15 +98,7 @@ export default function Product(props) {
   const increase = () => {
     setCounter((count) => count + 1);
   };
-  const addItemToCart = () => {
-    setCartCounter(cartCounter + 1);
-    const currentCart = Cookies.get('cart') ? getParsedCookie('cart') : [];
-    const productInCurrentCart = currentCart.find(
-      (productInCart) => props.product.id === productInCart.id,
-    );
-    productInCurrentCart.cartCounter += 1;
-    setStringifiedCookie('cart', currentCart);
-  };
+
   // decrease counter
   const decrease = () => {
     if (counter > 0) {
@@ -122,9 +118,25 @@ export default function Product(props) {
           <h3>Price: {props.product.price}</h3>
           <div className="productDescription">{props.product.description}</div>
           <div css={counterContainer}>
-            <button onClick={decrease}>-</button>
+            <button
+              onClick={() => {
+                setIsInCart(props.product.cartCounter);
+                setCartCounter(removeItemFromCart(props.product.id));
+                decrease();
+              }}
+            >
+              -
+            </button>
             <p>{counter}</p>
-            <button onClick={(increase, addItemToCart)}>+</button>
+            <button
+              onClick={() => {
+                setCartCounter(addItemToCart(props.product.id));
+                setIsInCart(props.product.cartCounter);
+                increase();
+              }}
+            >
+              +
+            </button>
           </div>
           <div className="addToCartContainer">
             <button className="addToCart" onClick={handleAddToCart}>
@@ -145,11 +157,11 @@ export function getServerSideProps(context) {
     return p.id === context.query.productId;
   });
   // find object that matches the product in url
-  const productInCurrentCart = currentCart.find(
+  const currentProductInCart = currentCart.find(
     (productInCart) => product.id === productInCart.id,
   );
   // create new object and addthe properties from the cookie to the products in database
-  const superProduct = { ...product, ...productInCurrentCart };
+  const superProduct = { ...product, ...currentProductInCart };
   return {
     props: {
       product: superProduct,

@@ -43,7 +43,7 @@ export const productsDatabase = [
     price: 6,
     image: '/../public/images/NickAndJohnny.webp',
     description:
-      'A dark and spicy flavour of tobacco with clear hints of cherry, almond, wintergreens and raspberry. A well-balanced variant from Nick & Johnnu which is relatively strong and offers large portions.',
+      'A dark and spicy flavour of tobacco with clear hints of cherry, almond, wintergreens and raspberry. A well-balanced variant from Nick & Johnny which is relatively strong and offers large portions.',
   },
   {
     id: '6',
