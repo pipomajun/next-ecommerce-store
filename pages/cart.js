@@ -1,6 +1,9 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import Link from 'next/link';
+// import { useState } from 'react';
+// import { countItemsInCart, countTotalSum } from '../util/cartFunctions';
+import { productsDatabase } from '../util/database';
 
 const cartStyles = css`
   display: flex;
@@ -18,7 +21,11 @@ const cartStyles = css`
   }
 `;
 
-export default function Cart() {
+export default function Cart(/* {props}*/) {
+  // const [cart, setCart] = useState(props.currentCart);
+  // const totalSum = countTotalSum(cart);
+  // const totalCount = countItemsInCart(cart);
+
   return (
     <div>
       <Head>
@@ -44,4 +51,28 @@ export default function Cart() {
       </main>
     </div>
   );
+}
+
+export function getServerSideProps(context) {
+  // get the value of the product from cookies
+  const currentCookies = JSON.parse(context.req.cookies.cart || '[]');
+  // const products = productsDatabase.find((p) => {
+  //   return p.id === context.query.productId;
+  // });
+  const currentCart = currentCookies.map((product) => {
+    const cartItem = productsDatabase.find((p) => p.id === product.id);
+
+    return {
+      id: cartItem.id,
+      brand: cartItem.brand,
+      type: cartItem.type,
+      price: cartItem.price,
+      image: cartItem.image,
+      description: cartItem.description,
+    };
+  });
+
+  return {
+    props: { productsDatabase, currentCart, currentCookies },
+  };
 }

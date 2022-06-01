@@ -1,14 +1,14 @@
 import Cookies from 'js-cookie';
 import { getParsedCookie, setStringifiedCookie } from './cookies';
 
-export function countItemsInCart(cart) {
-  return cart
+export function countItemsInCart(currentCart) {
+  return currentCart
     .map((product) => product.itemCount)
     .reduce((totalCount, currentCount) => totalCount + currentCount, 0);
 }
 
-export function countTotalSum(cart) {
-  return cart.reduce((accumulator, product) => {
+export function countTotalSum(currentCart) {
+  return currentCart.reduce((accumulator, product) => {
     return accumulator + product.price * product.itemCount;
   }, 0);
 }
