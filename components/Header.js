@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 
 // import { countItemsInCart } from '../util/cartFunctions';
+
 // import { getParsedCookie } from '../util/cookies';
 
 const headerStyles = css`
@@ -38,7 +39,7 @@ const headerStyles = css`
     }
   }
 `;
-// // function to count items in cart and display it in header
+// Function to count items in cart and display it in header
 // const cartCount = () => {
 //   try {
 //     return getParsedCookie('cart');
@@ -50,7 +51,7 @@ const headerStyles = css`
 // const itemsInCart = cartCount();
 
 // const totalItemsInCart =
-//   typeof itemsInCart === 'undefined' ? 0 : countItemsInCart(itemsInCart);
+//   typeof itemsInCart === 'undefined' ? 0 : countItemsInCart(cartCount());
 
 function Header() {
   return (
@@ -65,7 +66,7 @@ function Header() {
         <Link href="/products" data-test-id="products-link">
           Products
         </Link>
-        <Link href="/cart">🛒 0</Link>{' '}
+        <Link href="/cart">🛒 </Link>
       </div>
     </header>
   );

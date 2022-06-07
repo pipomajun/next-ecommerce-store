@@ -9,6 +9,7 @@ const footerStyles = css`
   div {
     width: 30%;
     margin: 0 auto;
+    font-size: 18px;
     text-align: center;
   }
 `;

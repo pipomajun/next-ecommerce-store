@@ -56,6 +56,7 @@ const products = [
   },
 ];
 
+// insert data into table
 exports.up = async (sql) => {
   await sql`
 		INSERT INTO products ${sql(
@@ -69,6 +70,7 @@ exports.up = async (sql) => {
 	`;
 };
 
+// remove data from table - one "match" should be enough because items are unique
 exports.down = async (sql) => {
   for (const product of products) {
     await sql`

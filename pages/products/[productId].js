@@ -7,7 +7,8 @@ import { useState } from 'react';
 // import { addItemToCart } from '../../util/cartFunctions';
 // import Counter from '../../components/Counter';
 import { getParsedCookie, setStringifiedCookie } from '../../util/cookies';
-import { productsDatabase } from '../../util/database';
+
+// import { productsDatabase } from '../../util/database';
 
 const mainSingleProductStyles = css`
   width: 100vw;
@@ -33,6 +34,7 @@ const productItemStyle = css`
       border: none;
       border-radius: 100px;
       background-color: #90e8e8;
+      font-family: 'Roboto Mono', sans-serif;
       font-size: 20px;
       padding: 5px 10px;
       margin-top: 20px;
@@ -68,10 +70,12 @@ const counterContainer = css`
 
 export default function Product(props) {
   // Set useState for for isInCart and cartCounter
-  const [isInCart, setIsInCart] = useState('cartCounter' in props.product);
+  const [isInCart, setIsInCart] = useState(
+    'cartCounter' in props.singleProduct,
+  );
   console.log(isInCart);
   const [cartCounter, setCartCounter] = useState(
-    props.product.cartCounter || 0,
+    props.singleProduct.cartCounter || 0,
   );
   console.log(cartCounter);
   // useState for +/- counter
@@ -93,17 +97,19 @@ export default function Product(props) {
     const currentCart = Cookies.get('cart') ? getParsedCookie('cart') : [];
     let newCart;
     if (
-      currentCart.find((productInCart) => props.product.id === productInCart.id)
+      currentCart.find(
+        (productInCart) => props.singleProduct.id === productInCart.id,
+      )
     ) {
       newCart = currentCart.filter(
-        (productInCart) => productInCart !== props.product.id,
+        (productInCart) => productInCart !== props.singleProduct.id,
       );
       setIsInCart(false);
       setCartCounter(0);
     } else {
       newCart = [
         ...currentCart,
-        { id: props.product.id, cartCounter: counter },
+        { id: props.singleProduct.id, cartCounter: counter },
       ];
       setIsInCart(true);
     }
@@ -115,18 +121,25 @@ export default function Product(props) {
     <div css={mainSingleProductStyles}>
       <div css={productItemStyle}>
         <div className="productImgContainer">
-          <Image width="479" height="480" src={props.product.image} alt="img" />
+          <Image
+            width="479"
+            height="480"
+            src={props.singleProduct.image}
+            alt="img"
+          />
         </div>
         <div className="productTextContainer">
-          <h1>{props.product.brand}</h1>
-          <h2>{props.product.type}</h2>
-          <h3>Price: {props.product.price}</h3>
-          <div className="productDescription">{props.product.description}</div>
+          <h1>{props.singleProduct.brand}</h1>
+          <h2>{props.singleProduct.type}</h2>
+          <h3>Price: {props.singleProduct.price}</h3>
+          <div className="productDescription">
+            {props.singleProduct.description}
+          </div>
           <div css={counterContainer}>
             <button
               onClick={() => {
-                // setIsInCart(props.product.cartCounter);
-                // setCartCounter(removeItemFromCart(props.product.id));
+                // setIsInCart(props.singleProduct.cartCounter);
+                // setCartCounter(removeItemFromCart(props.singleProduct.id));
                 decrease();
               }}
             >
@@ -135,8 +148,8 @@ export default function Product(props) {
             <p>{counter}</p>
             <button
               onClick={() => {
-                // setCartCounter(addItemToCart(props.product.id));
-                // setIsInCart(props.product.cartCounter);
+                // setCartCounter(addItemToCart(props.singleProduct.id));
+                // setIsInCart(props.singleProduct.cartCounter);
                 increase();
               }}
             >
@@ -158,22 +171,43 @@ export default function Product(props) {
   );
 }
 
-export function getServerSideProps(context) {
-  // get the value of the product from cookies
-  const currentCookies = JSON.parse(context.req.cookies.cart || '[]');
-  // get id from url and match it with product id
-  const product = productsDatabase.find((p) => {
-    return p.id === context.query.productId;
-  });
-  // find object that matches the product in url
-  const currentProductInCart = currentCookies.find(
-    (productInCart) => product.id === productInCart.id,
-  );
-  // create new object and addthe properties from the cookie to the products in database
-  const superProduct = { ...product, ...currentProductInCart };
+// export async function getServerSideProps(context) {
+//   const { getProducts } = await import('../../util/database');
+//   const products = await getProducts();
+//   const currentCookies = context.req.cookies.cart
+//     ? JSON.parse(context.req.cookies.cart)
+//     : [];
+//   const currentCart = currentCookies.map((item) => {
+//     const itemInCart = products.find((product) => product.id === item.id);
+//     return { ...itemInCart, ...item };
+//   });
+//   return {
+//     props: { currentCart },
+//   };
+// }
+export async function getServerSideProps(context) {
+  const { getSingleProduct } = await import('../../util/database');
+  const singleProduct = await getSingleProduct(context.query.productId);
   return {
-    props: {
-      product: superProduct,
-    },
+    props: { singleProduct },
   };
 }
+//
+//
+// // get the value of the product from cookies
+// const currentCookies = JSON.parse(context.req.cookies.cart || '[]');
+// // get id from url and match it with product id
+// const product = productsDatabase.find((p) => {
+//   return p.id === context.query.productId;
+// });
+// // find object that matches the product in url
+// const currentProductInCart = currentCookies.find(
+//   (productInCart) => singleProduct.id === productInCart.id,
+// );
+// // create new object and addthe properties from the cookie to the products in database
+// const superProduct = { ...product, ...currentProductInCart };
+// return {
+//   props: {
+//     product: superProduct,
+//   },
+// };
