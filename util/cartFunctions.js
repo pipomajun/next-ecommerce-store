@@ -27,7 +27,7 @@ export function addItemToCart(id) {
   return currentCart;
 }
 
-// Remove one unit of one item from cart
+// Remove one unit of one item in cart
 export function removeItemFromCart(id) {
   const currentCart = Cookies.get('cart') ? getParsedCookie('cart') : [];
   const productInCart = currentCart.find((product) => product.id === id);
@@ -42,14 +42,25 @@ export function removeItemFromCart(id) {
     currentCart.splice(removeIndex, 1);
   }
   setStringifiedCookie('cart', currentCart);
-  return currentCart;
+  console.log(currentCart);
 }
 
-// Remove all units from one item from cart
-export function removeAllItemsFromCart(id) {
-  const currentCart = Cookies.get('cart') ? getParsedCookie('cart') : [];
-  const productInCart = currentCart.find((product) => product.id !== id);
-  setStringifiedCookie('cart', currentCart);
-  return productInCart;
-  // setShoppingCart(newCookieValue);
+// Remove all units from one item in cart - works, but suddenly currentCookies.map @ cart/getServerSideProps is not a function anymore
+// export function removeAllItemsFromCart(id) {
+//   const currentCart = Cookies.get('cart') ? getParsedCookie('cart') : [];
+//   const newCart = currentCart.find((product) => product.id !== id);
+//   setStringifiedCookie('cart', newCart);
+
+//   // setCart(newCookies);
+// const removeAllItemsFromCart = (id) => {
+//   const cookieValue = [...props.currentCookies];
+//   const newCookieValue = cookieValue.filter((p) => p.id !== id);
+//   setStringifiedCookie('cart', newCookieValue);
+//   setCart(newCookieValue);
+// }
+// }
+
+// Clear all units from all items in cart
+export function clearCart() {
+  setStringifiedCookie('cart', []);
 }

@@ -1,10 +1,8 @@
 import { css } from '@emotion/react';
 import Link from 'next/link';
 import React from 'react';
-
-// import { countItemsInCart } from '../util/cartFunctions';
-
-// import { getParsedCookie } from '../util/cookies';
+import { countItemsInCart } from '../util/cartFunctions';
+import { getParsedCookie } from '../util/cookies';
 
 const headerStyles = css`
   margin: 15px;
@@ -37,23 +35,29 @@ const headerStyles = css`
       color: white;
       border-bottom: 3px white dotted;
     }
+    div:hover {
+      cursor: pointer;
+      color: white;
+      border-bottom: 3px white dotted;
+    }
   }
 `;
-// Function to count items in cart and display it in header
-// const cartCount = () => {
-//   try {
-//     return getParsedCookie('cart');
-//   } catch (err) {
-//     return;
-//   }
-// };
-
-// const itemsInCart = cartCount();
-
-// const totalItemsInCart =
-//   typeof itemsInCart === 'undefined' ? 0 : countItemsInCart(cartCount());
 
 function Header() {
+  // Function to count items in cart and display it in header
+  const headerCart = () => {
+    try {
+      return getParsedCookie('cart');
+    } catch (err) {
+      return;
+    }
+  };
+
+  const itemsInCart = headerCart();
+
+  const totalItemsInCart =
+    typeof itemsInCart === 'undefined' ? 0 : countItemsInCart(headerCart());
+
   return (
     <header css={headerStyles}>
       <Link href="/">
@@ -66,7 +70,9 @@ function Header() {
         <Link href="/products" data-test-id="products-link">
           Products
         </Link>
-        <Link href="/cart">🛒 </Link>
+        <Link href="/cart" data-test-id="cart-link">
+          <div data-test-id="cart-count">🛒 {totalItemsInCart}</div>
+        </Link>
       </div>
     </header>
   );

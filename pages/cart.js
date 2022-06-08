@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import {
   addItemToCart,
+  clearCart,
   countItemsInCart,
   countTotalSum,
   removeItemFromCart,
@@ -12,7 +13,6 @@ import {
 
 // import { setStringifiedCookie } from '../util/cookies';
 
-// import { productsDatabase } from '../util/database';
 const emptyCart = css`
   display: flex;
   width: 100vw;
@@ -40,13 +40,14 @@ const cartStyles = css`
   width: 100vw;
   flex-direction: column;
   align-items: center;
+
   .cartContainer {
     display: flex;
     flex-direction: column;
 
     .cartProductContainer {
       display: flex;
-      width: 800px;
+      width: 1000px;
       justify-content: space-between;
       border-bottom: 2px #90e8e8 solid;
       margin: 40px 0px;
@@ -60,6 +61,7 @@ const cartStyles = css`
           margin-right: 50px;
         }
         p {
+          font-size: 24px;
           margin: 0;
           font-weight: bolder;
         }
@@ -93,6 +95,11 @@ const cartStyles = css`
           cursor: pointer;
           background: #f2f2f2;
         }
+        .cartInfo {
+          p {
+            font-size: 20px;
+          }
+        }
       }
     }
   }
@@ -106,19 +113,33 @@ const cartStyles = css`
     p + p {
       font-weight: bolder;
     }
-    p.proceedToCheckout {
+    .proceedToCheckout {
       border: 1px grey solid;
       border-radius: 100px;
       padding: 10px;
-      width: 350px;
+      width: 250px;
       font-size: 20px;
       text-align: center;
       align-self: center;
     }
-    p.proceedToCheckout:hover {
+    .proceedToCheckout:hover {
       border-color: white;
       cursor: pointer;
       background-color: #90e8e8;
+    }
+    button {
+      font-size: 20px;
+      align-self: center;
+      border: none;
+      border-radius: 50px;
+      height: 40px;
+      width: 40px;
+      margin: 0 10px;
+      background-color: white;
+    }
+    button:hover {
+      cursor: pointer;
+      background: #f2f2f2;
     }
   }
 `;
@@ -127,22 +148,6 @@ export default function Cart(props) {
   const [cart, setCart] = useState(props.currentCart);
   const totalSum = countTotalSum(cart);
   const totalCount = countItemsInCart(cart);
-
-  // // useState for +/- counter
-  // const [counter, setCounter] = useState(0);
-
-  // // Increase counter
-  // const increase = () => {
-  //   setCounter((count) => count + 1);
-  // };
-
-  // // Decrease counter
-  // const decrease = () => {
-  //   if (counter > 0) {
-  //     setCounter((count) => count - 1);
-  //   }
-  // };
-  // console.log(props.currentCart);
   return (
     <div>
       <Head>
@@ -153,20 +158,23 @@ export default function Cart(props) {
       <main>
         {totalCount === 0 ? (
           <div css={emptyCart}>
-            <h1>Oh no! Seems like your cart is empty!</h1>
+            <h1>Oh no! It seems like your cart is empty!</h1>
             <Link href="/products">
-              <p>Keep browsing through our products →</p>
+              <p>Take a look at our products →</p>
             </Link>
           </div>
         ) : (
           <div css={cartStyles}>
-            <h1>Items in cart</h1>
+            <div>
+              <h1>Items in cart</h1>
+            </div>
             <div className="cartContainer">
               {cart.map((product) => {
                 return (
                   <div
                     className="cartProductContainer"
                     key={`product-item-${product.id}`}
+                    data-test-id={`cart-product-${product.id}`}
                   >
                     <Link href={`/products/${product.id}`}>
                       <div className="cartProductImgInfo">
@@ -186,30 +194,54 @@ export default function Cart(props) {
                     </Link>
                     <div className="cartButtonContainer">
                       <button
+                        title="Remove"
                         onClick={() => {
-                          // setIsInCart(props.singleProduct.cartCounter);
-                          // setCartCounter(removeItemFromCart(props.singleProduct.id));
-                          // decrease();
                           removeItemFromCart(product.id);
+                          const newCartCounter =
+                            product.cartCounter > 1
+                              ? product.cartCounter - 1
+                              : 0;
+                          const updatedCart = cart.map((items) =>
+                            items.id === product.id
+                              ? { ...items, cartCounter: newCartCounter }
+                              : items,
+                          );
+                          setCart(updatedCart);
                         }}
                       >
                         -
                       </button>
-                      <div>
-                        <p>Amount: {product.cartCounter}</p>
+                      <div className="cartInfo">
+                        <p data-test-id={`cart-product-quantity-${product.id}`}>
+                          Quantity: {product.cartCounter}
+                        </p>
                         <p>Total: {product.price * product.cartCounter}</p>
                       </div>
                       <button
+                        title="Add"
                         onClick={() => {
-                          // setCartCounter(addItemToCart(props.singleProduct.id));
-                          // setIsInCart(props.singleProduct.cartCounter);
-                          // increase();
                           addItemToCart(product.id);
+                          const newCartCounter = product.cartCounter + 1;
+                          const updatedCart = cart.map((items) =>
+                            items.id === product.id
+                              ? { ...items, cartCounter: newCartCounter }
+                              : items,
+                          );
+                          setCart(updatedCart);
                         }}
                       >
                         +
                       </button>
-                      <button className="removeItemButton">❌</button>
+                      <button
+                        title="Delete item from cart"
+                        className="removeItemButton"
+                        data-test-id={`cart-product-remove-${product.id}`}
+                        // onClick={() => {
+                        //   removeAllItemsFromCart();
+                        // }}
+                      >
+                        ❌
+                      </button>
                     </div>
                   </div>
                 );
@@ -218,12 +250,27 @@ export default function Cart(props) {
             <div className="preCheckout">
               <div className="totals">
                 <p>Total items in cart: {totalCount}</p>
-                <p>Total price: {totalSum}</p>
+                <p data-test-id="cart-total">Total price: {totalSum}</p>
               </div>
 
               <Link href="/checkout">
-                <p className="proceedToCheckout">Proceed to Checkout</p>
+                <button
+                  className="proceedToCheckout"
+                  data-test-id="cart-checkout"
+                >
+                  Proceed to checkout
+                </button>
               </Link>
+              <button
+                className="clearCartButton"
+                title="Clear cart"
+                onClick={() => {
+                  clearCart();
+                  setCart([]);
+                }}
+              >
+                🗑️
+              </button>
             </div>
           </div>
         )}
@@ -243,27 +290,6 @@ export async function getServerSideProps(context) {
     return { ...itemInCart, ...item };
   });
   return {
-    props: { currentCart },
+    props: { currentCart, currentCookies },
   };
 }
-// // get the value of the product from cookies
-// const currentCookies = JSON.parse(context.req.cookies.cart || '[]');
-// // const products = productsDatabase.find((p) => {
-// //   return p.id === context.query.productId;
-// // });
-// const currentCart = currentCookies.map((product) => {
-//   const cartItem = productsDatabase.find((p) => p.id === product.id);
-
-//   return {
-//     id: cartItem.id,
-//     brand: cartItem.brand,
-//     type: cartItem.type,
-//     price: cartItem.price,
-//     image: cartItem.image,
-//     description: cartItem.description,
-//   };
-// });
-
-// return {
-//   props: { productsDatabase, currentCart, currentCookies },
-// };

@@ -79,7 +79,7 @@ export default function Product(props) {
   );
   console.log(cartCounter);
   // useState for +/- counter
-  const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState(1);
 
   // Increase counter
   const increase = () => {
@@ -101,11 +101,13 @@ export default function Product(props) {
         (productInCart) => props.singleProduct.id === productInCart.id,
       )
     ) {
-      newCart = currentCart.filter(
-        (productInCart) => productInCart !== props.singleProduct.id,
-      );
-      setIsInCart(false);
-      setCartCounter(0);
+      newCart = currentCart.map((item) => {
+        if (item.id === props.singleProduct.id) {
+          return { ...item, cartCounter: counter };
+        }
+        return item;
+      });
+      setCartCounter(props.singleProduct.cartCounter);
     } else {
       newCart = [
         ...currentCart,
@@ -126,30 +128,29 @@ export default function Product(props) {
             height="480"
             src={props.singleProduct.image}
             alt="img"
+            data-test-id="product-image"
           />
         </div>
         <div className="productTextContainer">
           <h1>{props.singleProduct.brand}</h1>
           <h2>{props.singleProduct.type}</h2>
-          <h3>Price: {props.singleProduct.price}</h3>
+          <h3 data-test-id="product-price">
+            Price: {props.singleProduct.price}
+          </h3>
           <div className="productDescription">
             {props.singleProduct.description}
           </div>
           <div css={counterContainer}>
             <button
               onClick={() => {
-                // setIsInCart(props.singleProduct.cartCounter);
-                // setCartCounter(removeItemFromCart(props.singleProduct.id));
                 decrease();
               }}
             >
               -
             </button>
-            <p>{counter}</p>
+            <p data-test-id="product-quantity">{counter}</p>
             <button
               onClick={() => {
-                // setCartCounter(addItemToCart(props.singleProduct.id));
-                // setIsInCart(props.singleProduct.cartCounter);
                 increase();
               }}
             >
@@ -157,7 +158,11 @@ export default function Product(props) {
             </button>
           </div>
           <div className="addToCartContainer">
-            <button className="addToCart" onClick={handleAddToCart}>
+            <button
+              className="addToCart"
+              data-test-id="product-add-to-cart"
+              onClick={handleAddToCart}
+            >
               Add to cart 🛒
             </button>
 

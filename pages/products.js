@@ -53,6 +53,7 @@ export default function Products(props) {
               <Link
                 href={`/products/${product.id}`}
                 key={`product-${product.id}`}
+                data-test-id={`product-${product.id}`}
               >
                 <div className="productItem">
                   <Image
