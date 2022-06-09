@@ -4,9 +4,9 @@ import Header from './Header';
 export default function Layout(props) {
   return (
     <div>
-      <Header
-        itemsInCart={props.itemsInCart}
-        setItemsInCart={props.setItemsInCart}
+      <Header // props drilling from _app.js to add useEffect in global app
+        itemsInCookieCart={props.itemsInCookieCart}
+        setItemsInCookieCart={props.setItemsInCookieCart}
       />
       {props.children}
       <Footer />

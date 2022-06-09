@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { getParsedCookie, setStringifiedCookie } from './cookies';
+import { getParsedCookie } from './cookies';
 
 // Add one unit of one item to cart
 export function addItemToCart(id) {
@@ -10,7 +10,6 @@ export function addItemToCart(id) {
   } else {
     currentCart.push({ id: id, cartCounter: 1 });
   }
-  setStringifiedCookie('cart', currentCart);
   return currentCart;
 }
 
@@ -28,16 +27,15 @@ export function removeItemFromCart(id) {
       .indexOf(id);
     currentCart.splice(removeIndex, 1);
   }
-  setStringifiedCookie('cart', currentCart);
-  console.log(currentCart);
+  return currentCart;
 }
 
 // Remove all units from one item in cart - works, but suddenly currentCookies.map @ cart/getServerSideProps is not a function anymore
-// export function removeAllItemsFromCart(id) {
-//   const currentCart = Cookies.get('cart') ? getParsedCookie('cart') : [];
-//   const newCart = currentCart.find((product) => product.id !== id);
-//   setStringifiedCookie('cart', newCart);
-// }
+export function removeAllItemsFromCart(id) {
+  const currentCart = Cookies.get('cart') ? getParsedCookie('cart') : [];
+  const newCart = currentCart.filter((product) => product.id !== id);
+  return newCart;
+}
 //   // setCart(newCookies);
 // const removeAllItemsFromCart = (id) => {
 //   const cookieValue = [...props.currentCookies];
@@ -48,6 +46,3 @@ export function removeItemFromCart(id) {
 // }
 
 // Clear all units from all items in cart
-export function clearCart() {
-  setStringifiedCookie('cart', []);
-}

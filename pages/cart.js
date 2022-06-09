@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { countItemsInCart, countTotalSum } from '../util/calculateTotals';
 import {
   addItemToCart,
-  clearCart,
+  removeAllItemsFromCart,
   removeItemFromCart,
 } from '../util/cartFunctions';
 
@@ -144,10 +144,9 @@ const cartStyles = css`
 `;
 
 export default function Cart(props) {
-  const [cart, setCart] = useState(props.currentCart);
-  const totalSum = countTotalSum(cart);
-  const totalCount = countItemsInCart(cart);
-  console.log(cart);
+  const [productCart, setProductCart] = useState(props.currentCart);
+  const totalSum = countTotalSum(productCart);
+  const totalCount = countItemsInCart(productCart);
   return (
     <div>
       <Head>
@@ -169,7 +168,7 @@ export default function Cart(props) {
               <h1>Items in cart</h1>
             </div>
             <div className="cartContainer">
-              {cart.map((product) => {
+              {productCart.map((product) => {
                 return (
                   <div
                     className="cartProductContainer"
@@ -196,18 +195,21 @@ export default function Cart(props) {
                       <button
                         title="Remove"
                         onClick={() => {
-                          removeItemFromCart(product.id);
+                          // onClick change quantity of items in cookie array
+                          const newCookie = removeItemFromCart(product.id);
+                          props.setItemsInCookieCart(newCookie);
+
+                          // onClick change quantity of items in product array
                           const newCartCounter =
                             product.cartCounter > 1
                               ? product.cartCounter - 1
                               : 0;
-                          const updatedCart = cart.map((items) =>
+                          const updatedCart = productCart.map((items) =>
                             items.id === product.id
                               ? { ...items, cartCounter: newCartCounter }
                               : items,
                           );
-                          setCart(updatedCart);
-                          props.setItemsInCart(updatedCart);
+                          setProductCart(updatedCart);
                         }}
                       >
                         -
@@ -221,15 +223,15 @@ export default function Cart(props) {
                       <button
                         title="Add"
                         onClick={() => {
-                          addItemToCart(product.id);
+                          const newCookie = addItemToCart(product.id);
+                          props.setItemsInCookieCart(newCookie);
                           const newCartCounter = product.cartCounter + 1;
-                          const updatedCart = cart.map((items) =>
+                          const updatedCart = productCart.map((items) =>
                             items.id === product.id
                               ? { ...items, cartCounter: newCartCounter }
                               : items,
                           );
-                          setCart(updatedCart);
-                          props.setItemsInCart(updatedCart);
+                          setProductCart(updatedCart);
                         }}
                       >
                         +
@@ -238,9 +240,11 @@ export default function Cart(props) {
                         title="Delete item from cart"
                         className="removeItemButton"
                         data-test-id={`cart-product-remove-${product.id}`}
-                        // onClick={() => {
-                        //   removeAllItemsFromCart();
-                        // }}
+                        onClick={() => {
+                          const newCookie = removeAllItemsFromCart(product.id);
+                          props.setItemsInCookieCart(newCookie);
+                          // setProductCart(newCookie);
+                        }}
                       >
                         ❌
                       </button>
@@ -267,8 +271,8 @@ export default function Cart(props) {
                 className="clearCartButton"
                 title="Clear cart"
                 onClick={() => {
-                  clearCart();
-                  setCart([]);
+                  setProductCart([]);
+                  props.setItemsInCookieCart([]);
                 }}
               >
                 🗑️

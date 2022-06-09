@@ -2,7 +2,7 @@ import { css, Global } from '@emotion/react';
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
-import { getParsedCookie } from '../util/cookies';
+import { getParsedCookie, setStringifiedCookie } from '../util/cookies';
 import { getLocalStorage, setLocalStorage } from '../util/localStorage';
 
 const cookieBannerStyles = (cookiesAccepted) => css`
@@ -14,14 +14,19 @@ const cookieBannerStyles = (cookiesAccepted) => css`
   text-align: center;
 `;
 function MyApp({ Component, pageProps }) {
-  const [cookiesAccepted, setCookiesAccepted] = useState(false);
-
-  // useEffect for header cart
-  const [itemsInCart, setItemsInCart] = useState([]);
+  // useEffect and useState to update cart in header and solve hydration issues - because server side only!!
+  const [itemsInCookieCart, setItemsInCookieCart] = useState([]);
   useEffect(() => {
     const currentCart = Cookies.get('cart') ? getParsedCookie('cart') : [];
-    setItemsInCart(currentCart);
+    setItemsInCookieCart(currentCart);
   }, []);
+
+  useEffect(() => {
+    setStringifiedCookie('cart', itemsInCookieCart);
+  }, [itemsInCookieCart]);
+
+  // useEffect, useState and handleCookies function to accept cookies
+  const [cookiesAccepted, setCookiesAccepted] = useState(false);
 
   function handleCookies() {
     // 2. set the value for the cookieBanner
@@ -29,7 +34,6 @@ function MyApp({ Component, pageProps }) {
     setCookiesAccepted(true);
   }
 
-  // useEffect is only frontend
   useEffect(() => {
     // 1. we need to check if there is already a value for the cookieBanner
     if (getLocalStorage('cookiesAccepted')) {
@@ -77,11 +81,14 @@ function MyApp({ Component, pageProps }) {
           Yes
         </button>
       </div>
-      <Layout itemsInCart={itemsInCart} setItemsInCart={setItemsInCart}>
+      <Layout
+        itemsInCookieCart={itemsInCookieCart}
+        setItemsInCookieCart={setItemsInCookieCart}
+      >
         <Component
           {...pageProps}
-          itemsInCart={itemsInCart}
-          setItemsInCart={setItemsInCart}
+          itemsInCookieCart={itemsInCookieCart}
+          setItemsInCookieCart={setItemsInCookieCart}
         />
       </Layout>
     </>

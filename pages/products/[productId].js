@@ -1,14 +1,7 @@
 import { css } from '@emotion/react';
-import Cookies from 'js-cookie';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-// import { addItemToCart, removeItemFromCart } from '../../util/cartFunctions';
-// import { addItemToCart } from '../../util/cartFunctions';
-// import Counter from '../../components/Counter';
-import { getParsedCookie, setStringifiedCookie } from '../../util/cookies';
-
-// import { productsDatabase } from '../../util/database';
 
 const mainSingleProductStyles = css`
   width: 100vw;
@@ -94,7 +87,7 @@ export default function Product(props) {
   };
   // Handle add to cart
   const handleAddToCart = () => {
-    const currentCart = Cookies.get('cart') ? getParsedCookie('cart') : [];
+    const currentCart = props.itemsInCookieCart;
     let newCart;
     if (
       currentCart.find(
@@ -115,8 +108,7 @@ export default function Product(props) {
       ];
       setIsInCart(true);
     }
-
-    setStringifiedCookie('cart', newCart);
+    props.setItemsInCookieCart(newCart);
   };
 
   return (
@@ -167,7 +159,6 @@ export default function Product(props) {
             >
               Add to cart 🛒
             </button>
-
             <Link href="/cart">
               <button className="addToCart">View cart →</button>
             </Link>
