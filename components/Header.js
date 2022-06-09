@@ -1,8 +1,11 @@
 import { css } from '@emotion/react';
+// import Cookies from 'js-cookie';
 import Link from 'next/link';
-import React from 'react';
-import { countItemsInCart } from '../util/cartFunctions';
-import { getParsedCookie } from '../util/cookies';
+
+// import React, { useEffect, useState } from 'react';
+// import { countItemsInCart } from '../util/calculateTotals';
+
+// import { getParsedCookie } from '../util/cookies';
 
 const headerStyles = css`
   margin: 15px;
@@ -43,20 +46,30 @@ const headerStyles = css`
   }
 `;
 
-function Header() {
+function Header(props) {
   // Function to count items in cart and display it in header
-  const headerCart = () => {
-    try {
-      return getParsedCookie('cart');
-    } catch (err) {
-      return;
-    }
-  };
+  // const [itemsInCart, setItemsInCart] = useState([]);
+  // useEffect(() => {
+  //   const currentCart = Cookies.get('cart') ? getParsedCookie('cart') : [];
+  //   setItemsInCart(currentCart);
+  // }, []);
 
-  const itemsInCart = headerCart();
+  // const headerCart = () => {
+  //   try {
+  //     return getParsedCookie('cart');
+  //   } catch (err)
+  //     return;
+  //   }
+  // };
 
-  const totalItemsInCart =
-    typeof itemsInCart === 'undefined' ? 0 : countItemsInCart(headerCart());
+  // const itemsInCart = headerCart();
+
+  const totalItemsInCart = props.itemsInCart.reduce(function (acc, current) {
+    return acc + current.cartCounter;
+  }, 0);
+  // typeof itemsInCart === 'undefined' ? 0 : countItemsInCart(headerCart());
+
+  console.log(totalItemsInCart);
 
   return (
     <header css={headerStyles}>

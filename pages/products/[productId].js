@@ -161,7 +161,9 @@ export default function Product(props) {
             <button
               className="addToCart"
               data-test-id="product-add-to-cart"
-              onClick={handleAddToCart}
+              onClick={() => {
+                handleAddToCart();
+              }}
             >
               Add to cart 🛒
             </button>

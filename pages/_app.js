@@ -1,6 +1,8 @@
 import { css, Global } from '@emotion/react';
+import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
+import { getParsedCookie } from '../util/cookies';
 import { getLocalStorage, setLocalStorage } from '../util/localStorage';
 
 const cookieBannerStyles = (cookiesAccepted) => css`
@@ -13,6 +15,13 @@ const cookieBannerStyles = (cookiesAccepted) => css`
 `;
 function MyApp({ Component, pageProps }) {
   const [cookiesAccepted, setCookiesAccepted] = useState(false);
+
+  // useEffect for header cart
+  const [itemsInCart, setItemsInCart] = useState([]);
+  useEffect(() => {
+    const currentCart = Cookies.get('cart') ? getParsedCookie('cart') : [];
+    setItemsInCart(currentCart);
+  }, []);
 
   function handleCookies() {
     // 2. set the value for the cookieBanner
@@ -68,8 +77,12 @@ function MyApp({ Component, pageProps }) {
           Yes
         </button>
       </div>
-      <Layout>
-        <Component {...pageProps} />
+      <Layout itemsInCart={itemsInCart} setItemsInCart={setItemsInCart}>
+        <Component
+          {...pageProps}
+          itemsInCart={itemsInCart}
+          setItemsInCart={setItemsInCart}
+        />
       </Layout>
     </>
   );

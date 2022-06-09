@@ -3,11 +3,10 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { countItemsInCart, countTotalSum } from '../util/calculateTotals';
 import {
   addItemToCart,
   clearCart,
-  countItemsInCart,
-  countTotalSum,
   removeItemFromCart,
 } from '../util/cartFunctions';
 
@@ -148,6 +147,7 @@ export default function Cart(props) {
   const [cart, setCart] = useState(props.currentCart);
   const totalSum = countTotalSum(cart);
   const totalCount = countItemsInCart(cart);
+  console.log(cart);
   return (
     <div>
       <Head>
@@ -207,6 +207,7 @@ export default function Cart(props) {
                               : items,
                           );
                           setCart(updatedCart);
+                          props.setItemsInCart(updatedCart);
                         }}
                       >
                         -
@@ -228,6 +229,7 @@ export default function Cart(props) {
                               : items,
                           );
                           setCart(updatedCart);
+                          props.setItemsInCart(updatedCart);
                         }}
                       >
                         +
@@ -290,6 +292,6 @@ export async function getServerSideProps(context) {
     return { ...itemInCart, ...item };
   });
   return {
-    props: { currentCart, currentCookies },
+    props: { currentCart },
   };
 }

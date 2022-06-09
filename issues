@@ -1,0 +1,8 @@
+@cart.js
+when item is in cart and cookies, it shows on cart page. but once hard reloaded --> hydration failed / text-content does not match server-rendered html
+
+@header.js
+counter does work, but not automatically updating
+
+@cart.js
+remove all items from one product not working

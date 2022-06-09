@@ -4,7 +4,10 @@ import Header from './Header';
 export default function Layout(props) {
   return (
     <div>
-      <Header />
+      <Header
+        itemsInCart={props.itemsInCart}
+        setItemsInCart={props.setItemsInCart}
+      />
       {props.children}
       <Footer />
     </div>
