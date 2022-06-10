@@ -7,7 +7,7 @@ const footerStyles = css`
   background: #90e8e8;
   border-radius: 100px;
   div {
-    width: 30%;
+    width: 60%;
     margin: 0 auto;
     font-size: 18px;
     text-align: center;

@@ -15,12 +15,13 @@ const cookieBannerStyles = (cookiesAccepted) => css`
 `;
 function MyApp({ Component, pageProps }) {
   // useEffect and useState to update cart in header and solve hydration issues - because server side only!!
+  // this is first render only
   const [itemsInCookieCart, setItemsInCookieCart] = useState([]);
   useEffect(() => {
     const currentCart = Cookies.get('cart') ? getParsedCookie('cart') : [];
     setItemsInCookieCart(currentCart);
   }, []);
-
+  // this useEffect is after first render (whenever quantity changes)
   useEffect(() => {
     setStringifiedCookie('cart', itemsInCookieCart);
   }, [itemsInCookieCart]);

@@ -4,11 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { countItemsInCart, countTotalSum } from '../util/calculateTotals';
-import {
-  addItemToCart,
-  removeAllItemsFromCart,
-  removeItemFromCart,
-} from '../util/cartFunctions';
+import { addItemToCart, removeItemFromCart } from '../util/cartFunctions';
 
 // import { setStringifiedCookie } from '../util/cookies';
 
@@ -104,8 +100,9 @@ const cartStyles = css`
   }
   .preCheckout {
     display: flex;
-    width: 30%;
+    width: 1000px;
     justify-content: space-between;
+    align-items: center;
     p {
       margin: 0;
     }
@@ -113,21 +110,26 @@ const cartStyles = css`
       font-weight: bolder;
     }
     .proceedToCheckout {
+      font-family: inherit;
       border: 1px grey solid;
       border-radius: 100px;
-      padding: 10px;
-      width: 250px;
+      padding: 5px 10px;
+      width: 400px;
+      height: 60px;
       font-size: 20px;
-      text-align: center;
-      align-self: center;
+
+      margin-left: auto;
+      /* margin-right: auto; */
+      /* align-self: center; */
     }
     .proceedToCheckout:hover {
       border-color: white;
       cursor: pointer;
       background-color: #90e8e8;
+      font-weight: bolder;
     }
-    button {
-      font-size: 20px;
+    /* button {
+      font-size: 24px;
       align-self: center;
       border: none;
       border-radius: 50px;
@@ -139,7 +141,7 @@ const cartStyles = css`
     button:hover {
       cursor: pointer;
       background: #f2f2f2;
-    }
+    } */
   }
 `;
 
@@ -147,6 +149,13 @@ export default function Cart(props) {
   const [productCart, setProductCart] = useState(props.currentCart);
   const totalSum = countTotalSum(productCart);
   const totalCount = countItemsInCart(productCart);
+  //
+  // const onClickRemoveItems = (id) => {
+  //   const cookieValue = [...props.currentCookies];
+  //   const newCookieValue = cookieValue.filter((p) => p.id !== id);
+  //   props.setItemsInCookieCart('cart', newCookieValue);
+  //   setProductCart(newCookieValue);
+  // };
   return (
     <div>
       <Head>
@@ -223,8 +232,11 @@ export default function Cart(props) {
                       <button
                         title="Add"
                         onClick={() => {
+                          // onClick change quantity of items in cookie array
                           const newCookie = addItemToCart(product.id);
                           props.setItemsInCookieCart(newCookie);
+
+                          // onClick change quantity of items in product array
                           const newCartCounter = product.cartCounter + 1;
                           const updatedCart = productCart.map((items) =>
                             items.id === product.id
@@ -241,8 +253,9 @@ export default function Cart(props) {
                         className="removeItemButton"
                         data-test-id={`cart-product-remove-${product.id}`}
                         onClick={() => {
-                          const newCookie = removeAllItemsFromCart(product.id);
-                          props.setItemsInCookieCart(newCookie);
+                          // onClickRemoveItems(product.id);
+                          // const newCookie = removeAllItemsFromCart(product.id);
+                          // props.setItemsInCookieCart(newCookie);
                           // setProductCart(newCookie);
                         }}
                       >
@@ -267,7 +280,7 @@ export default function Cart(props) {
                   Proceed to checkout
                 </button>
               </Link>
-              <button
+              {/* <button
                 className="clearCartButton"
                 title="Clear cart"
                 onClick={() => {
@@ -276,7 +289,7 @@ export default function Cart(props) {
                 }}
               >
                 🗑️
-              </button>
+              </button> */}
             </div>
           </div>
         )}

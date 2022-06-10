@@ -19,12 +19,12 @@ const headerStyles = css`
     display: flex;
     align-items: center;
     margin-right: 30px;
-    width: 400px;
+    width: 500px;
     justify-content: space-around;
     a {
       color: black;
       text-decoration: none;
-      font-size: 24px;
+      font-size: 28px;
       font-weight: bolder;
       text-align: center;
     }

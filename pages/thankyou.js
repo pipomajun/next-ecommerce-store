@@ -6,6 +6,29 @@ const thankyouStyles = css`
   display: flex;
   flex-direction: column;
   align-items: center;
+  button {
+    font-family: inherit;
+    border: 1px grey solid;
+    border-radius: 100px;
+    padding: 5px 10px;
+    width: 400px;
+    height: 60px;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    align-self: center;
+    a {
+      text-decoration: none;
+      color: black;
+    }
+  }
+  button:hover {
+    border-color: white;
+    cursor: pointer;
+    background-color: #90e8e8;
+    font-weight: bolder;
+  }
 `;
 
 export default function Home() {

@@ -20,11 +20,12 @@ const mainProductsStyles = css`
       padding: 10px;
       border: 4px #90e8e8 dotted;
       transition: transform 0.2s;
+      align-items: center;
     }
     .productItem:hover {
       background-color: #f2f2f2;
       cursor: pointer;
-      transform: scale(1.2);
+      transform: scale(1.15);
     }
     p {
       margin: 10px auto;
