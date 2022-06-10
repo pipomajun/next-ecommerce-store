@@ -1,10 +1,62 @@
-# Next.js Example - Spring 2022
+# supermegaawesomestore.
+
+## Description
+
+The supermegaawesomestore. is a fictional e-commerce store as part of the upleveled.io web developement bootcamp. The company is not real and no purchases can be made.
+
+## Functionalities
+
+This next.js-project includes the following functionalities:
+
+- landing page
+- products page displaying all available products
+- a single page for each product with more information about the product
+  - toggle the counter and add items to the cart with the button below
+  - the quantity will be shown in the header next to the cart symbol
+- cart page
+  - displaying all products in the cart with the correct quantity and price for each
+  - displaying the total count of items and the total sum of the cart
+  - adjust the quantities of items before proceeding to checkout
+- checkout page
+- thank you page
+
+## List of technologies used
 
 - Next.js
+- React.js
 - Postgres.js
-- Jest
-- Playwright
+- Emotion (CSS-in-JS)
+- Jest (Unit tests)
+- Playwright (E2E tests)
+- Typescript
 - GitHub Actions
+
+## Setup instructions
+
+- Clone the repository with `git clone <repo>`
+- Setup the database by downloading and installing PostgreSQL
+- Create a user and a database
+- Create a new file `.env`
+- Copy the environment variables from `.env-example` into `.env`
+- Replace the placeholders xxxxx with your username, password and name of database
+- Install dotenv-cli with `yarn add dotenv-cli`
+- Run `yarn install` in your command line
+- Run the migrations with `yarn migrate up`
+- Start the server by running `yarn dev`
+
+## Deploy on Heroku
+
+- Sign up at Heroku: https://www.heroku.com/.
+- Create a new App
+- Choose a name and select the "Europe" Region
+- Click "Connect to GitHub"
+- Search for your repository and click on "Connect". Click on "Enable Automatic Deploys"
+- Go to the Overview tab and click "Configure Add-On"
+- Search for "Postgres" and select "Heroku Postgres"
+- Trigger a deploy by pushing your repo to GitHub
+<!--
+
+# Next.js Example - Spring 2022
 
 ## Database Setup
 
@@ -90,4 +142,4 @@ Base URL (development): http://localhost:3000/api/
 2. Reading a single user: `GET /users/:id`
 3. Creating a new user: `POST /users`
 4. Deleting a user: `DELETE /users/:id`
-5. Updating a user: `PUT /users/:id`
+5. Updating a user: `PUT /users/:id` -->
