@@ -1,7 +1,6 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 import { countItemsInCart, countTotalSum } from '../util/calculateTotals';
 
 const checkoutStyles = css`
