@@ -1,8 +1,9 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { countItemsInCart, countTotalSum } from '../util/calculateTotals';
+import { setStringifiedCookie } from '../util/cookies';
 
 const checkoutStyles = css`
   width: 80%;
@@ -58,20 +59,16 @@ const checkoutStyles = css`
     text-align: center;
     background-color: #90e8e8;
     margin-top: 25px;
-    a {
-      text-decoration: none;
-      font-weight: 500;
-      color: black;
-      font-family: 'Roboto Mono', sans-serif;
-    }
+    text-decoration: none;
+    font-weight: 500;
+    color: black;
+    font-family: 'Roboto Mono', sans-serif;
   }
   .checkoutConfirm:hover {
     border-color: grey;
     cursor: pointer;
     background-color: #f2f2f2;
-    a {
-      font-weight: 700;
-    }
+    font-weight: 700;
   }
 `;
 
@@ -79,6 +76,15 @@ export default function Checkout(props) {
   const [checkoutCart, setCheckoutCart] = useState(props.currentCart);
   const totalCount = countItemsInCart(checkoutCart);
   const totalSum = countTotalSum(checkoutCart);
+  // useRouter - Link component in the button would not handleSubmit
+  const router = useRouter();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setStringifiedCookie('cart', []);
+    setCheckoutCart(checkoutCart);
+    router.push('/thankyou').catch(() => {});
+  };
+
   return (
     <div>
       <Head>
@@ -96,7 +102,7 @@ export default function Checkout(props) {
             <p>The total price is {totalSum}!</p>
           </div>
           <div className="checkoutFormWrapper">
-            <form className="checkoutForm">
+            <form className="checkoutForm" onSubmit={handleSubmit}>
               <div className="personalDetails">
                 <h2>👤 Personal Details</h2>
                 <label>
@@ -104,6 +110,7 @@ export default function Checkout(props) {
                   <input
                     placeholder="Harl"
                     data-test-id="checkout-first-name"
+                    required
                   />
                 </label>
                 <label>
@@ -111,6 +118,7 @@ export default function Checkout(props) {
                   <input
                     placeholder="Korky"
                     data-test-id="checkout-last-name"
+                    required
                   />
                 </label>
                 <label>
@@ -119,6 +127,7 @@ export default function Checkout(props) {
                     placeholder="harl.korky@example.com"
                     data-test-id="checkout-email"
                     type="email"
+                    required
                   />
                 </label>
               </div>
@@ -129,17 +138,23 @@ export default function Checkout(props) {
                   <input
                     placeholder="Markhofgasse 19"
                     data-test-id="checkout-address"
+                    required
                   />
                 </label>
                 <label>
                   City
-                  <input placeholder="Vienna" data-test-id="checkout-city" />
+                  <input
+                    placeholder="Vienna"
+                    data-test-id="checkout-city"
+                    required
+                  />
                 </label>
                 <label>
                   Postal Code
                   <input
                     placeholder="1030"
                     data-test-id="checkout-postal-code"
+                    required
                   />
                 </label>
                 <label>
@@ -147,6 +162,7 @@ export default function Checkout(props) {
                   <input
                     placeholder="Austria"
                     data-test-id="checkout-country"
+                    required
                   />
                 </label>
               </div>
@@ -158,7 +174,8 @@ export default function Checkout(props) {
                     placeholder="1234 5678 1234 5678"
                     data-test-id="checkout-credit-card"
                     type="number"
-                    maxLength={12}
+                    required
+                    maxLength="12"
                   />
                 </label>
                 <label>
@@ -166,24 +183,30 @@ export default function Checkout(props) {
                   <input
                     data-test-id="checkout-expiration-date"
                     type="number"
-                    maxLength={4}
+                    maxLength="4"
                     placeholder="MM/YY"
+                    required
                   />
                 </label>
                 <label>
                   Security Code
                   <input
                     placeholder="123"
+                    maxLength="3"
                     data-test-id="checkout-security-code"
                     type="password"
+                    required
                   />
                 </label>
               </div>
+              <button
+                data-test-id="checkout-confirm-order"
+                className="checkoutConfirm"
+              >
+                Confirm Order
+              </button>
             </form>
           </div>
-          <button className="checkoutConfirm">
-            <Link href="/thankyou">Confirm Order</Link>
-          </button>
         </div>
       </main>
     </div>

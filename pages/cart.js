@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { countItemsInCart, countTotalSum } from '../util/calculateTotals';
 import { addItemToCart, removeItemFromCart } from '../util/cartFunctions';
+import { getParsedCookie, setStringifiedCookie } from '../util/cookies';
 
 // import { setStringifiedCookie } from '../util/cookies';
 
@@ -128,7 +129,7 @@ const cartStyles = css`
       background-color: #90e8e8;
       font-weight: bolder;
     }
-    /* button {
+    button {
       font-size: 24px;
       align-self: center;
       border: none;
@@ -141,7 +142,7 @@ const cartStyles = css`
     button:hover {
       cursor: pointer;
       background: #f2f2f2;
-    } */
+    }
   }
 `;
 
@@ -149,13 +150,7 @@ export default function Cart(props) {
   const [productCart, setProductCart] = useState(props.currentCart);
   const totalSum = countTotalSum(productCart);
   const totalCount = countItemsInCart(productCart);
-  //
-  // const onClickRemoveItems = (id) => {
-  //   const cookieValue = [...props.currentCookies];
-  //   const newCookieValue = cookieValue.filter((p) => p.id !== id);
-  //   props.setItemsInCookieCart('cart', newCookieValue);
-  //   setProductCart(newCookieValue);
-  // };
+
   return (
     <div>
       <Head>
@@ -253,10 +248,30 @@ export default function Cart(props) {
                         className="removeItemButton"
                         data-test-id={`cart-product-remove-${product.id}`}
                         onClick={() => {
-                          // onClickRemoveItems(product.id);
-                          // const newCookie = removeAllItemsFromCart(product.id);
-                          // props.setItemsInCookieCart(newCookie);
-                          // setProductCart(newCookie);
+                          product.cartCounter = 0;
+
+                          const updateArray = productCart.filter(
+                            (productDelete) => productDelete.cartCounter !== 0,
+                          );
+
+                          // 1. update the sate
+                          setProductCart(updateArray);
+                          // 2. cookies begin
+                          const currentCart = getParsedCookie('cart');
+                          // 3. get the synth from the cookies
+                          const currentProduct = currentCart.find(
+                            (productInCart) => product.id === productInCart.id,
+                          );
+                          // 4. update the quantity to 0
+                          currentProduct.cartCounter = 0;
+                          // 5. create new cart
+                          const updatedCart = currentCart.filter(
+                            (currentProductInCart) =>
+                              currentProductInCart.cartCounter !== 0,
+                          );
+                          // 6. set the new cookie update after deleting
+                          props.setItemsInCookieCart(updatedCart);
+                          setStringifiedCookie('cart', updatedCart);
                         }}
                       >
                         ❌
@@ -280,7 +295,7 @@ export default function Cart(props) {
                   Proceed to checkout
                 </button>
               </Link>
-              {/* <button
+              <button
                 className="clearCartButton"
                 title="Clear cart"
                 onClick={() => {
@@ -289,7 +304,7 @@ export default function Cart(props) {
                 }}
               >
                 🗑️
-              </button> */}
+              </button>
             </div>
           </div>
         )}

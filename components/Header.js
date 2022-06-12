@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import Link from 'next/link';
 
 const headerStyles = css`
-  margin: 15px;
+  margin: 45px;
   padding: 16px 24px;
   background: #90e8e8;
   border-radius: 100px;
