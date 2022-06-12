@@ -3,7 +3,6 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { countItemsInCart, countTotalSum } from '../util/calculateTotals';
-import { setStringifiedCookie } from '../util/cookies';
 
 const checkoutStyles = css`
   width: 80%;
@@ -73,15 +72,13 @@ const checkoutStyles = css`
 `;
 
 export default function Checkout(props) {
-  const [checkoutCart, setCheckoutCart] = useState(props.currentCart);
-  const totalCount = countItemsInCart(checkoutCart);
-  const totalSum = countTotalSum(checkoutCart);
+  const totalCount = countItemsInCart(props.currentCart);
+  const totalSum = countTotalSum(props.currentCart);
   // useRouter - Link component in the button would not handleSubmit
   const router = useRouter();
   const handleSubmit = (e) => {
     e.preventDefault();
-    setStringifiedCookie('cart', []);
-    setCheckoutCart(checkoutCart);
+    props.setItemsInCookieCart([]);
     router.push('/thankyou').catch(() => {});
   };
 
