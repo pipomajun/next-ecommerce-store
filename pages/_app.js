@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     setStringifiedCookie('cart', itemsInCookieCart);
   }, [itemsInCookieCart]);
-
+  console.log(itemsInCookieCart);
   // useEffect, useState and handleCookies function to accept cookies
   const [cookiesAccepted, setCookiesAccepted] = useState(false);
 

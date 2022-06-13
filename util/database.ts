@@ -1,8 +1,13 @@
 import camelcaseKeys from 'camelcase-keys';
 import { config } from 'dotenv-safe';
 import postgres from 'postgres';
+import { ProductType } from './types';
 
 config();
+// Type needed for the connection function below
+declare module globalThis {
+  let postgresSqlClient: ReturnType<typeof postgres> | undefined;
+}
 // Connect only once to the database
 // https://github.com/vercel/next.js/issues/7811#issuecomment-715259370
 function connectOneTimeToDatabase() {
@@ -18,19 +23,21 @@ function connectOneTimeToDatabase() {
 const sql = connectOneTimeToDatabase();
 
 // Get all products from database
+
 export async function getProducts() {
-  const products = await sql`
+  const products = await sql<ProductType[]>`
   SELECT * FROM products
   `;
   return products.map((product) => camelcaseKeys(product));
 }
 
 // Get single product from database
-export async function getSingleProduct(id) {
-  const [product] = await sql`
+export async function getSingleProduct(id: number | undefined) {
+  if (!id) return undefined;
+  const [product] = await sql<[ProductType | undefined]>`
   SELECT * FROM products WHERE id=${id}
   `;
-  return camelcaseKeys(product);
+  return product && camelcaseKeys(product);
 }
 export const productsDatabase = [
   {

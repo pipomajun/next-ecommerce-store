@@ -1,7 +1,12 @@
 import { css } from '@emotion/react';
+// import { GetServerSidePropsContext } from 'next';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+// import { getSingleProduct } from '../../util/database';
+// import { queryParamToNumber } from '../../util/queryParams';
+// import { CookiesType, ProductType } from '../../util/types';
 
 const mainSingleProductStyles = css`
   width: 100vw;
@@ -60,20 +65,39 @@ const counterContainer = css`
     background: #f2f2f2;
   }
 `;
+// type Props = {
+//   singleProduct: ProductType; // double-check with Lukas
+//   itemsInCookieCart: CookiesType[];
+//   setItemsInCookieCart: any;
+// };
 
 export default function Product(props) {
-  // Set useState for for isInCart and cartCounter
-  const [isInCart, setIsInCart] = useState(
-    'cartCounter' in props.singleProduct,
-  );
-  console.log(isInCart);
-  const [cartCounter, setCartCounter] = useState(
-    props.singleProduct.cartCounter || 0,
-  );
-  console.log(cartCounter);
+  // // Set useState for for isInCart and cartCounter
+  // const [isInCart, setIsInCart] = useState(
+  //   'cartCounter' in props.singleProduct,
+  // );
+  // console.log(isInCart);
   // useState for +/- counter
   const [counter, setCounter] = useState(1);
+  const [cartCounter, setCartCounter] = useState(counter);
+  console.log(cartCounter);
+  if (!props.singleProduct) {
+    return (
+      <div css={mainSingleProductStyles}>
+        <Head>
+          <title>Product not found</title>
+          <meta
+            name="description"
+            content="Unfortunately, we have had trouble locating the product you're looking for. Better luck next time."
+          />
+        </Head>
 
+        <h1>
+          Oops! It seems like we have troubles locating the requested product...
+        </h1>
+      </div>
+    );
+  }
   // Increase counter
   const increase = () => {
     setCounter((count) => count + 1);
@@ -106,7 +130,7 @@ export default function Product(props) {
         ...currentCart,
         { id: props.singleProduct.id, cartCounter: counter },
       ];
-      setIsInCart(true);
+      // setIsInCart(true);
     }
     props.setItemsInCookieCart(newCart);
   };
@@ -183,6 +207,23 @@ export default function Product(props) {
 //     props: { currentCart },
 //   };
 // }
+//
+//
+// export async function getServerSideProps(context: GetServerSidePropsContext) {
+//   const productId = queryParamToNumber(context.query.id);
+//   const singleProduct = await getSingleProduct(productId);
+//   if (!singleProduct) {
+//     context.res.statusCode = 404;
+//   }
+
+//   return {
+//     props: {
+//       product: singleProduct || null,
+//     },
+//   };
+// }
+//
+//
 export async function getServerSideProps(context) {
   const { getSingleProduct } = await import('../../util/database');
   const singleProduct = await getSingleProduct(context.query.productId);
@@ -190,22 +231,3 @@ export async function getServerSideProps(context) {
     props: { singleProduct },
   };
 }
-//
-//
-// // get the value of the product from cookies
-// const currentCookies = JSON.parse(context.req.cookies.cart || '[]');
-// // get id from url and match it with product id
-// const product = productsDatabase.find((p) => {
-//   return p.id === context.query.productId;
-// });
-// // find object that matches the product in url
-// const currentProductInCart = currentCookies.find(
-//   (productInCart) => singleProduct.id === productInCart.id,
-// );
-// // create new object and addthe properties from the cookie to the products in database
-// const superProduct = { ...product, ...currentProductInCart };
-// return {
-//   props: {
-//     product: superProduct,
-//   },
-// };

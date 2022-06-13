@@ -2,7 +2,8 @@ import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { productsDatabase } from '../util/database';
+import { getProducts } from '../util/database';
+import { ProductType } from '../util/types';
 
 // CSS-in-JS
 const mainProductsStyles = css`
@@ -36,13 +37,15 @@ const mainProductsStyles = css`
     }
   }
 `;
-
-export default function Products(props) {
+type Props = {
+  products: ProductType[];
+};
+export default function Products(props: Props) {
   return (
     <div>
       <Head>
         <title>Products</title>
-        <meta name="description" content="Check out what's new!" />
+        <meta name="description" content="Check out what's in store!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -74,10 +77,19 @@ export default function Products(props) {
   );
 }
 
-export function getServerSideProps() {
+export async function getServerSideProps() {
+  const products = await getProducts();
   return {
     props: {
-      products: productsDatabase,
+      products: products,
     },
   };
 }
+
+// export function getServerSideProps() {
+//   return {
+//     props: {
+//       products: productsDatabase,
+//     },
+//   };
+// }

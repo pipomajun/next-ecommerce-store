@@ -80,7 +80,7 @@ export default function Checkout(props) {
     props.setItemsInCookieCart([]);
     router.push('/thankyou').catch(() => {});
   };
-
+  console.log(props.itemsInCookieCart);
   return (
     <div>
       <Head>
