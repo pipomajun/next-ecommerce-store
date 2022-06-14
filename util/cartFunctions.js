@@ -29,20 +29,3 @@ export function removeItemFromCart(id) {
   }
   return currentCart;
 }
-
-// Remove all units from one item in cart - works, but suddenly currentCookies.map @ cart/getServerSideProps is not a function anymore
-// export function removeAllItemsFromCart(id) {
-//   const currentCart = Cookies.get('cart') ? getParsedCookie('cart') : [];
-//   const newCart = currentCart.filter((product) => product.id !== id);
-//   return newCart;
-// }
-//   // setCart(newCookies);
-// const removeAllItemsFromCart = (id) => {
-//   const cookieValue = [...props.currentCookies];
-//   const newCookieValue = cookieValue.filter((p) => p.id !== id);
-//   setStringifiedCookie('cart', newCookieValue);
-//   setCart(newCookieValue);
-// }
-// }
-
-// Clear all units from all items in cart

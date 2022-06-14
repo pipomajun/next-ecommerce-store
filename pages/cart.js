@@ -150,7 +150,7 @@ export default function Cart(props) {
   const [productCart, setProductCart] = useState(props.currentCart);
   const totalSum = countTotalSum(productCart);
   const totalCount = countItemsInCart(productCart);
-
+  console.log(props.currentCookies);
   return (
     <div>
       <Head>
@@ -216,6 +216,46 @@ export default function Cart(props) {
                           setProductCart(updatedCart);
                         }}
                       >
+                        {/* <button
+                        title="Remove"
+                        onClick={() => {
+                          // onClick change quantity of items in cookie array
+                          const newCookie = removeItemFromCart(product.id);
+                          props.setItemsInCookieCart(newCookie);
+
+                          // onClick change quantity of items in product array
+                          let updatedCart;
+                          const newCartCounter =
+                            product.cartCounter > 1
+                              ? product.cartCounter - 1
+                              : (product.cartCounter = 0);
+                          if (newCartCounter) {
+                            updatedCart = productCart.map((items) =>
+                              items.id === product.id
+                                ? { ...items, cartCounter: newCartCounter }
+                                : items,
+                            );
+                          } else {
+                            const updateArray = productCart.filter(
+                              (productDelete) =>
+                                productDelete.cartCounter !== 0,
+                            );
+                            setProductCart(updateArray);
+                            const currentCart = getParsedCookie('cart');
+                            const currentProduct = currentCart.find(
+                              (productInCart) =>
+                                product.id === productInCart.id,
+                            );
+                            currentProduct.cartCounter = 0;
+                            updatedCart = currentCart.filter(
+                              (currentProductInCart) =>
+                                currentProductInCart.cartCounter !== 0,
+                            );
+                          }
+
+                          setProductCart(updatedCart);
+                        }}
+                      > */}
                         -
                       </button>
                       <div className="cartInfo">
@@ -254,11 +294,11 @@ export default function Cart(props) {
                             (productDelete) => productDelete.cartCounter !== 0,
                           );
 
-                          // 1. update the sate
+                          // 1. update the state
                           setProductCart(updateArray);
                           // 2. cookies begin
                           const currentCart = getParsedCookie('cart');
-                          // 3. get the synth from the cookies
+                          // 3. get the products from the cookies
                           const currentProduct = currentCart.find(
                             (productInCart) => product.id === productInCart.id,
                           );
