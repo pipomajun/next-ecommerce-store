@@ -14,8 +14,15 @@ const checkoutStyles = css`
     flex-direction: column;
     align-self: center;
     padding-top: 30px;
+    h1 {
+      align-self: center;
+    }
     p {
+      align-self: center;
       margin: 5px;
+    }
+    p + p {
+      font-weight: bolder;
     }
   }
   // checkout form section
@@ -92,6 +99,7 @@ export default function Checkout(props) {
       <main>
         <div css={checkoutStyles}>
           <div className="checkoutInfo">
+            <h1>Welcome to checkout</h1>
             <p>
               You have {totalCount} items in your supermegaawesome checkout cart
             </p>

@@ -39,7 +39,8 @@ const productItemStyle = css`
       margin-left: auto;
       margin-right: auto;
     }
-    .addToCart:hover {
+    .addToCart:hover,
+    .proceedToCart:hover {
       cursor: pointer;
       background: #f2f2f2;
     }
@@ -184,7 +185,7 @@ export default function Product(props) {
               Add to cart 🛒
             </button>
             <Link href="/cart">
-              <button className="addToCart">View cart →</button>
+              <button className="proceedToCart">View cart →</button>
             </Link>
           </div>
         </div>

@@ -8,10 +8,12 @@ const headerStyles = css`
   border-radius: 100px;
   display: flex;
   justify-content: space-between;
-  h1 {
+  p {
     margin-left: 30px;
+    font-size: 36px;
+    font-weight: bold;
   }
-  h1:hover {
+  p:hover {
     cursor: pointer;
   }
 
@@ -53,7 +55,7 @@ function Header(props) {
   return (
     <header css={headerStyles}>
       <Link href="/">
-        <h1>🤙 supermegaawesomestore.</h1>
+        <p>🤙 supermegaawesomestore.</p>
       </Link>
 
       <div className="navContainer">

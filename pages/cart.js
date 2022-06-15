@@ -197,6 +197,7 @@ export default function Cart(props) {
                     </Link>
                     <div className="cartButtonContainer">
                       <button
+                        id="remove"
                         title="Remove"
                         onClick={() => {
                           // onClick change quantity of items in cookie array
