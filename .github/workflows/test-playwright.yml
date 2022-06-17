@@ -7,9 +7,9 @@ jobs:
     # Update env variables with your own database credentials
     env:
       PGHOST: localhost
-      PGDATABASE: next_js_example_spring_2022
-      PGUSERNAME: next_js_example_spring_2022
-      PGPASSWORD: next_js_example_spring_2022
+      PGDATABASE: pm_next_ecommerce_store
+      PGUSERNAME: pm_next_ecommerce_store
+      PGPASSWORD: pm_next_ecommerce_store
 
     steps:
       - name: Start preinstalled PostgreSQL on Ubuntu

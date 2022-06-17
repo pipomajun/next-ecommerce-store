@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 const baseUrl = 'http://localhost:3000/';
 test('test the checkout flow', async ({ page }) => {
