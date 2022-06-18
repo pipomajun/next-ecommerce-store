@@ -185,7 +185,7 @@ export default function Cart(props) {
                       <div className="cartProductImgInfo">
                         <div className="productImageContainer">
                           <Image
-                            src={product.image}
+                            src={`/images/${product.brand}.webp`}
                             width={100}
                             height={100}
                             alt={product.name}
