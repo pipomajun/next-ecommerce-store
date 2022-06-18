@@ -4,6 +4,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+
 // import { getSingleProduct } from '../../util/database';
 // import { queryParamToNumber } from '../../util/queryParams';
 // import { CookiesType, ProductType } from '../../util/types';
@@ -143,8 +144,8 @@ export default function Product(props) {
           <Image
             width="479"
             height="480"
-            src={props.singleProduct.image}
-            alt="img"
+            src={`/images/${props.singleProduct.brand}.webp`}
+            alt={props.singleProduct.brand}
             data-test-id="product-image"
           />
         </div>

@@ -61,7 +61,7 @@ export default function Products(props: Props) {
               >
                 <div className="productItem">
                   <Image
-                    src={product.image}
+                    src={`/images/${product.brand}.webp`}
                     alt={`${product.brand} ${product.type}`}
                     width="279"
                     height="280"

@@ -17,7 +17,7 @@ const emptyCart = css`
   p {
     border: 1px grey solid;
     border-radius: 100px;
-    margin: 0 auto;
+    margin: 30 auto;
     width: 500px;
     padding: 10px;
     font-size: 24px;
@@ -161,7 +161,9 @@ export default function Cart(props) {
       <main>
         {totalCount === 0 ? (
           <div css={emptyCart}>
-            <h1>Oh no! It seems like your cart is empty!</h1>
+            <h1>You're current total is {totalSum}...</h1>
+            <h2>Seems like your cart is empty!</h2>
+
             <Link href="/products">
               <p>Take a look at our products →</p>
             </Link>

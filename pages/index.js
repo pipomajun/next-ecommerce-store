@@ -53,7 +53,7 @@ export default function Home() {
       <main css={mainHeroStyles}>
         <div className="heroImgContainer">
           <Image
-            src="/../public/images/heroImage.jpg"
+            src="/images/heroImage.jpg"
             alt="refreshing picture"
             width="2520"
             height="1418"
