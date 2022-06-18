@@ -39,6 +39,10 @@ const headerStyles = css`
       color: white;
       border-bottom: 3px white dotted;
     }
+    p {
+      font-size: 24px;
+      margin-left: -30px;
+    }
   }
 `;
 
@@ -59,14 +63,19 @@ function Header(props) {
       </Link>
 
       <div className="navContainer">
-        <Link href="/">Home</Link>
-        <Link href="/about">About</Link>
+        <Link href="/">
+          <a>Home</a>
+        </Link>
+        <Link href="/about">
+          <a>About</a>
+        </Link>
         <Link href="/products" data-test-id="products-link">
-          Products
+          <a>Products</a>
         </Link>
-        <Link href="/cart" data-test-id="cart-link">
-          <div data-test-id="cart-count">🛒 {totalItemsInCart}</div>
+        <Link href="/cart">
+          <div data-test-id="cart-link">🛒 </div>
         </Link>
+        <p data-test-id="cart-count">{totalItemsInCart}</p>
       </div>
     </header>
   );
