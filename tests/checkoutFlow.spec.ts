@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 
 const baseUrl = 'http://localhost:3000/';
 test('test the checkout flow', async ({ page }) => {
+  test.setTimeout(60000);
   // go to the single product page - in this case the second product
   await page.goto(baseUrl + 'products/2');
   // make sure you're on the first product page
