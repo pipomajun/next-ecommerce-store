@@ -57,9 +57,11 @@ export default function Products(props: Props) {
               <Link
                 href={`/products/${product.id}`}
                 key={`product-${product.id}`}
-                data-test-id={`product-${product.id}`}
               >
-                <div className="productItem">
+                <div
+                  className="productItem"
+                  data-test-id={`product-${product.id}`}
+                >
                   <Image
                     src={`/images/${product.brand}.webp`}
                     alt={`${product.brand} ${product.type}`}
