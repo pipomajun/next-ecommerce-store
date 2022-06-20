@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 const baseUrl = 'http://localhost:3000/';
 
@@ -17,7 +17,7 @@ test('check cart function test', async ({ page }) => {
   await addToCartButton.click();
   // check if the header counter is set to 1
   const headerCartCount = page.locator('data-test-id=cart-count');
-  await expect(headerCartCount).toHaveText('🛒 1');
+  await expect(headerCartCount).toHaveText('1');
   // go to cart page
   const goToCartButton = page.locator('text=View cart →');
   await goToCartButton.click();
@@ -28,10 +28,10 @@ test('check cart function test', async ({ page }) => {
   const addButton = page.locator('text=+');
   await addButton.click();
   // check if the header counter is set to 2
-  await expect(headerCartCount).toHaveText('🛒 2');
+  await expect(headerCartCount).toHaveText('2');
   // remove the item from cart
   const removeButton = page.locator('text=❌');
   await removeButton.click();
   // check if the header counter is set back to 0
-  await expect(headerCartCount).toHaveText('🛒 0');
+  await expect(headerCartCount).toHaveText('0');
 });
