@@ -138,56 +138,62 @@ export default function Product(props) {
   };
 
   return (
-    <div css={mainSingleProductStyles}>
-      <div css={productItemStyle}>
-        <div className="productImgContainer">
-          <Image
-            width="479"
-            height="480"
-            src={`/images/${props.singleProduct.brand}.webp`}
-            alt={props.singleProduct.brand}
-            data-test-id="product-image"
-          />
-        </div>
-        <div className="productTextContainer">
-          <h1>{props.singleProduct.brand}</h1>
-          <h2>{props.singleProduct.type}</h2>
-          <h3 data-test-id="product-price">
-            Price: {props.singleProduct.price}
-          </h3>
-          <div className="productDescription">
-            {props.singleProduct.description}
+    <div>
+      <Head>
+        <title>{props.singleProduct.brand}</title>
+        <meta name="description" content={props.singleProduct.type} />
+      </Head>
+      <div css={mainSingleProductStyles}>
+        <div css={productItemStyle}>
+          <div className="productImgContainer">
+            <Image
+              width="479"
+              height="480"
+              src={`/images/${props.singleProduct.brand}.webp`}
+              alt={props.singleProduct.brand}
+              data-test-id="product-image"
+            />
           </div>
-          <div css={counterContainer}>
-            <button
-              onClick={() => {
-                decrease();
-              }}
-            >
-              -
-            </button>
-            <p data-test-id="product-quantity">{counter}</p>
-            <button
-              onClick={() => {
-                increase();
-              }}
-            >
-              +
-            </button>
-          </div>
-          <div className="addToCartContainer">
-            <button
-              className="addToCart"
-              data-test-id="product-add-to-cart"
-              onClick={() => {
-                handleAddToCart();
-              }}
-            >
-              Add to cart 🛒
-            </button>
-            <Link href="/cart">
-              <button className="proceedToCart">View cart →</button>
-            </Link>
+          <div className="productTextContainer">
+            <h1>{props.singleProduct.brand}</h1>
+            <h2>{props.singleProduct.type}</h2>
+            <h3 data-test-id="product-price">
+              Price: {props.singleProduct.price}
+            </h3>
+            <div className="productDescription">
+              {props.singleProduct.description}
+            </div>
+            <div css={counterContainer}>
+              <button
+                onClick={() => {
+                  decrease();
+                }}
+              >
+                -
+              </button>
+              <p data-test-id="product-quantity">{counter}</p>
+              <button
+                onClick={() => {
+                  increase();
+                }}
+              >
+                +
+              </button>
+            </div>
+            <div className="addToCartContainer">
+              <button
+                className="addToCart"
+                data-test-id="product-add-to-cart"
+                onClick={() => {
+                  handleAddToCart();
+                }}
+              >
+                Add to cart 🛒
+              </button>
+              <Link href="/cart">
+                <button className="proceedToCart">View cart →</button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

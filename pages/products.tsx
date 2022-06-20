@@ -17,13 +17,15 @@ const mainProductsStyles = css`
   .productsDisplay {
     display: flex;
     justify-content: space-evenly;
-    .productItem {
+    a {
       padding: 10px;
       border: 4px #90e8e8 dotted;
       transition: transform 0.2s;
       align-items: center;
+      text-decoration: none;
+      color: black;
     }
-    .productItem:hover {
+    a:hover {
       background-color: #f2f2f2;
       cursor: pointer;
       transform: scale(1.15);
