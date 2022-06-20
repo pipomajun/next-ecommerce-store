@@ -69,11 +69,11 @@ function Header(props) {
         <Link href="/about">
           <a>About</a>
         </Link>
-        <Link href="/products" data-test-id="products-link">
-          <a>Products</a>
+        <Link href="/products">
+          <a data-test-id="products-link">Products</a>
         </Link>
         <Link href="/cart">
-          <div data-test-id="cart-link">🛒 </div>
+          <a data-test-id="cart-link">🛒 </a>
         </Link>
         <p data-test-id="cart-count">{totalItemsInCart}</p>
       </div>
