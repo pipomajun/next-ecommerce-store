@@ -21,6 +21,13 @@ const productItemStyle = css`
   .productTextContainer {
     width: 400px;
     margin-left: 80px;
+    .productPrice {
+      font-size: 28px;
+      font-weight: bolder;
+    }
+    .productDescription {
+      margin-top: 15px;
+    }
 
     .addToCartContainer {
       width: 100%;
@@ -157,9 +164,9 @@ export default function Product(props) {
           <div className="productTextContainer">
             <h1>{props.singleProduct.brand}</h1>
             <h2>{props.singleProduct.type}</h2>
-            <h3 data-test-id="product-price">
+            <div data-test-id="product-price" className="productPrice">
               Price: {props.singleProduct.price}
-            </h3>
+            </div>
             <div className="productDescription">
               {props.singleProduct.description}
             </div>
