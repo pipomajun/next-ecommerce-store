@@ -61,6 +61,13 @@ const counterContainer = css`
   margin: 5px auto;
   justify-content: space-around;
   align-items: center;
+  input {
+    border: none;
+    width: 50px;
+    text-align: center;
+    font-size: 24px;
+    font-family: inherit;
+  }
   button {
     font-size: 24px;
     background-color: #90e8e8;
@@ -164,8 +171,11 @@ export default function Product(props) {
           <div className="productTextContainer">
             <h1>{props.singleProduct.brand}</h1>
             <h2>{props.singleProduct.type}</h2>
-            <div className="productPrice" data-test-id="product-price">
-              Price: {props.singleProduct.price}
+            <div className="productPrice">
+              Price:{' '}
+              <span data-test-id="product-price">
+                {props.singleProduct.price}
+              </span>
             </div>
             <div className="productDescription">
               {props.singleProduct.description}
@@ -178,7 +188,8 @@ export default function Product(props) {
               >
                 -
               </button>
-              <p data-test-id="product-quantity">{counter}</p>
+              <input data-test-id="product-quantity" value={counter} />
+              {/* <p>{counter}</p> */}
               <button
                 onClick={() => {
                   increase();
