@@ -73,7 +73,7 @@ function Header(props) {
           <a data-test-id="products-link">Products</a>
         </Link>
         <Link href="/cart">
-          <a data-test-id="cart-link">🛒 </a>
+          <a data-test-id="cart-link">🛒</a>
         </Link>
         <p data-test-id="cart-count">{totalItemsInCart}</p>
       </div>

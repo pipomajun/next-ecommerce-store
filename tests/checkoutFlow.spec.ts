@@ -13,7 +13,7 @@ test('test the checkout flow', async ({ page }) => {
   await addToCartButton.click();
   // check if the header counter is set to 1
   const headerCartCount = page.locator('data-test-id=cart-count');
-  await expect(headerCartCount).toHaveText('🛒 1');
+  await expect(headerCartCount).toHaveText('1');
   // go to cart page
   const goToCartButton = page.locator('text=View cart →');
   await goToCartButton.click();
