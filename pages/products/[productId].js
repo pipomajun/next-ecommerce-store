@@ -164,11 +164,8 @@ export default function Product(props) {
           <div className="productTextContainer">
             <h1>{props.singleProduct.brand}</h1>
             <h2>{props.singleProduct.type}</h2>
-            <div className="productPrice">
-              Price:{' '}
-              <span data-test-id="product-price">
-                {props.singleProduct.price}
-              </span>
+            <div className="productPrice" data-test-id="product-price">
+              Price: {props.singleProduct.price}
             </div>
             <div className="productDescription">
               {props.singleProduct.description}
