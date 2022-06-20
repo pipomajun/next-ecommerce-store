@@ -188,7 +188,7 @@ export default function Product(props) {
               >
                 -
               </button>
-              <input data-test-id="product-quantity" value={counter} />
+              <input data-test-id="product-quantity" readOnly value={counter} />
               {/* <p>{counter}</p> */}
               <button
                 onClick={() => {
