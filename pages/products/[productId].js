@@ -172,7 +172,7 @@ export default function Product(props) {
             <h1>{props.singleProduct.brand}</h1>
             <h2>{props.singleProduct.type}</h2>
             <div className="productPrice" data-test-id="product-price">
-              {props.singleProduct.price}
+              Price: {props.singleProduct.price}
             </div>
             <div className="productDescription">
               {props.singleProduct.description}
