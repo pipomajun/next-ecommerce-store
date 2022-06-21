@@ -16,7 +16,7 @@ test('test the checkout flow', async ({ page }) => {
   // go to cart page
   const goToCartButton = page.locator('text=View cart →');
   await goToCartButton.click();
-  await page.waitForNavigation({ url: baseUrl + 'cart' });
+  await page.waitForNavigation({ url: `${baseUrl}cart` });
   // make sure you're on the cart page
   await expect(title).toHaveText('Items in cart');
   // go to checkout page
